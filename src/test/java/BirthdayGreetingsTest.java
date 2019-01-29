@@ -1,8 +1,10 @@
+import birthdaygreetingskata.BirthdayGreetings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import support.LocalSmtpServer;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -69,5 +71,28 @@ public class BirthdayGreetingsTest {
         smtpServer.sendMail("test@acme", "who@knows.com", "This is my subject", "this is the body of my message");
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
         assertEquals(1, messages.size());
+    }
+
+    @Test
+    void oneBirthday() throws IOException, MessagingException {
+        Files.write(Paths.get("employees.txt"), Arrays.asList(
+                "last_name, first_name, date_of_birth, email",
+                "Capone, Al, 1951-10-08, al.capone@acme.com",
+                "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
+                "Wick, John, 1987-09-11, john.wick@acme.com"
+        ));
+
+        BirthdayGreetings greetings = new BirthdayGreetings();
+        greetings.send();
+
+        //Read form employees file
+        //Check for birthday
+        final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
+        assertEquals(1, messages.size());
+
+        //read mail sent to smtp server
+        //assert on mail received
+
+        //Delete employee file
     }
 }
