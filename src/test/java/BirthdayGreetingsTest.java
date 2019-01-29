@@ -3,7 +3,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import support.LocalSmtpServer;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,6 +34,23 @@ public class BirthdayGreetingsTest {
 
         //Delete employee file
         //Start smtp server
+    }
+
+    @Test
+    void prepareFile() throws IOException {
+        Files.write(Paths.get("employees.txt"), Arrays.asList(
+                "last_name, first_name, date_of_birth, email",
+                "Capone, Al, 1951-10-08, al.capone@acme.com",
+                "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
+                "Wick, John, 1987-09-11, john.wick@acme.com"
+        ));
+
+        List<String> lines = Files.readAllLines(Paths.get("employees.txt"));
+        /*for (String line: lines ) {
+            System.out.println(line);
+        }*/
+
+        lines.stream().forEach(System.out::println);
     }
 
     @BeforeEach
