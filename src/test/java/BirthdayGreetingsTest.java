@@ -1,14 +1,7 @@
 import org.junit.jupiter.api.Test;
 import support.LocalSmtpServer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class BirthdayGreetingsTest {
-
-    @Test
-    void itWorks() {
-        assertEquals("a", "a");
-    }
 
     //This is an end to end test
     @Test
