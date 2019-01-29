@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BirthdayGreetingsTest {
 
     private LocalSmtpServer smtpServer;
-    private static final String MAIL_HOG_BIN = "/Users/duque/intr3/Kata/src/test/java/support/MailHog_darwin_amd64";
+    private static final String MAIL_HOG_BIN = "./src/test/java/support/MailHog_darwin_amd64";
 
     //This is an end to end test
     @Test
@@ -83,12 +84,18 @@ public class BirthdayGreetingsTest {
         ));
 
         BirthdayGreetings greetings = new BirthdayGreetings();
-        greetings.send();
+        greetings.send(LocalDate.parse("2018-10-08"));
 
         //Read form employees file
         //Check for birthday
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
         assertEquals(1, messages.size());
+
+        final LocalSmtpServer.MailReceived msg = messages.get(0);
+        assertEquals("al.capone@acme.com", msg.getTo());
+        assertEquals("greeter@acme.com", msg.getFrom());
+        assertEquals("Happy birthday!", msg.getSubject());
+        assertEquals("Happy birthday, dear Al!", msg.getBody());
 
         //read mail sent to smtp server
         //assert on mail received
