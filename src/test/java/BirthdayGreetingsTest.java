@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BirthdayGreetingsTest {
 
@@ -84,7 +85,18 @@ public class BirthdayGreetingsTest {
         greetings.send(LocalDate.parse("1987-09-11"));
 
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
+
+        LocalSmtpServer.MailReceived expectedMsg = getMailReceived("pablo.escobar@acme.com", "Pablo");
+        assertTrue(messages.contains(expectedMsg));
+
+        expectedMsg = getMailReceived("john.wick@acme.com", "John");
+        assertTrue(messages.contains(expectedMsg));
         assertEquals(2, messages.size());
+
+    }
+
+    private LocalSmtpServer.MailReceived getMailReceived(String to, String firstName) {
+        return new LocalSmtpServer.MailReceived("greeter@acme.com", to, "Happy birthday!", "Happy birthday, dear " + firstName + "!");
     }
 
     private void prepareFile(String filename, List<String> lines) throws IOException {

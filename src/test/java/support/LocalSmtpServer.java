@@ -16,6 +16,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LocalSmtpServer {
     private Process mailHog;
@@ -172,6 +173,32 @@ public class LocalSmtpServer {
 
         public String getBody() {
             return body;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            MailReceived that = (MailReceived) o;
+            return Objects.equals(from, that.from) &&
+                    Objects.equals(to, that.to) &&
+                    Objects.equals(subject, that.subject) &&
+                    Objects.equals(body, that.body);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(from, to, subject, body);
+        }
+
+        @Override
+        public String toString() {
+            return "MailReceived{" +
+                    "from='" + from + '\'' +
+                    ", to='" + to + '\'' +
+                    ", subject='" + subject + '\'' +
+                    ", body='" + body + '\'' +
+                    '}';
         }
     }
 
