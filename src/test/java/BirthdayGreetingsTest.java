@@ -16,13 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BirthdayGreetingsTest {
 
+    private static final String SERVER = "127.0.0.1";
+    private static final int PORT = 1027;
     private LocalSmtpServer smtpServer;
     private static final String MAIL_HOG_BIN = "./src/test/java/support/MailHog_darwin_amd64";
     private final String filename = "employees_test.txt";
 
     @BeforeEach
     void setUp() {
-        smtpServer = new LocalSmtpServer(MAIL_HOG_BIN, "127.0.0.1", 1027, 8027, 8027);
+        smtpServer = new LocalSmtpServer(MAIL_HOG_BIN, SERVER, PORT, 8027, 8027);
         smtpServer.start();
     }
 
@@ -40,7 +42,7 @@ public class BirthdayGreetingsTest {
                 "Wick, John, 1987-09-11, john.wick@acme.com"
         ));
 
-        BirthdayGreetings greetings = new BirthdayGreetings(filename);
+        BirthdayGreetings greetings = new BirthdayGreetings(filename, SERVER, PORT);
         greetings.send(LocalDate.parse("2018-10-08"));
 
         //Read form employees file

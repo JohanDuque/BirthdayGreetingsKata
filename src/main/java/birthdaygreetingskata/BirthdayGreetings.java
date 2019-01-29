@@ -18,9 +18,13 @@ public class BirthdayGreetings {
 
     private static final String GREETER_SENDER = "greeter@acme.com";
     private final String filename;
+    private final String server;
+    private final int port;
 
-    public BirthdayGreetings(String filename) {
+    public BirthdayGreetings(String filename, String server, int port) {
         this.filename = filename;
+        this.server = server;
+        this.port = port;
     }
 
     public void send(LocalDate today) throws MessagingException, IOException {
@@ -35,8 +39,8 @@ public class BirthdayGreetings {
 
         // Create a mail session
         java.util.Properties props = new java.util.Properties();
-        props.put("mail.smtp.host", "127.0.0.1");
-        props.put("mail.smtp.port", "1027");
+        props.put("mail.smtp.host", server);
+        props.put("mail.smtp.port", String.valueOf(port));
         Session session = Session.getInstance(props, null);
 
         // Construct the message
@@ -45,7 +49,6 @@ public class BirthdayGreetings {
         msg.setRecipient(Message.RecipientType.TO, new InternetAddress(receiverMail));
         msg.setSubject("Happy birthday!");
         msg.setText("Happy birthday, dear "+firstName+"!");
-
         // Send the message
         Transport.send(msg);
     }
