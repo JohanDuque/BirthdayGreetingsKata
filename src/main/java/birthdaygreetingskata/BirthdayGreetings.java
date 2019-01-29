@@ -28,8 +28,8 @@ public class BirthdayGreetings {
     }
 
     public void send(LocalDate today) throws MessagingException, IOException {
-
         List<String> lines = Files.readAllLines(Paths.get(filename)).stream().skip(1).collect(Collectors.toList());
+
         for (String line : lines) {
             final List<String> employeeInfo = Arrays.stream(line.split(",")).map(String::trim).collect(Collectors.toList());
 
