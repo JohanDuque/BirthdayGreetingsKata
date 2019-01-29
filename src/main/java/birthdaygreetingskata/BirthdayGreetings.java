@@ -17,10 +17,15 @@ import java.util.stream.Collectors;
 public class BirthdayGreetings {
 
     private static final String GREETER_SENDER = "greeter@acme.com";
+    private final String filename;
+
+    public BirthdayGreetings(String filename) {
+        this.filename = filename;
+    }
 
     public void send(LocalDate today) throws MessagingException, IOException {
 
-        List<String> lines = Files.readAllLines(Paths.get("employees.txt")).stream().skip(1).collect(Collectors.toList());
+        List<String> lines = Files.readAllLines(Paths.get(filename)).stream().skip(1).collect(Collectors.toList());
         final String line = lines.get(0);
         final List<String> employeeInfo = Arrays.stream(line.split(",")).map(String::trim).collect(Collectors.toList());
 

@@ -49,10 +49,6 @@ public class BirthdayGreetingsTest {
         ));
 
         List<String> lines = Files.readAllLines(Paths.get("employees.txt"));
-        /*for (String line: lines ) {
-            System.out.println(line);
-        }*/
-
         lines.forEach(System.out::println);
     }
 
@@ -83,7 +79,7 @@ public class BirthdayGreetingsTest {
                 "Wick, John, 1987-09-11, john.wick@acme.com"
         ));
 
-        BirthdayGreetings greetings = new BirthdayGreetings();
+        BirthdayGreetings greetings = new BirthdayGreetings("employees.txt");
         greetings.send(LocalDate.parse("2018-10-08"));
 
         //Read form employees file
