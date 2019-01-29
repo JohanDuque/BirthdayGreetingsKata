@@ -23,9 +23,11 @@ public class BirthdayGreetingsTest {
     private final String filename = "employees_test.txt";
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         smtpServer = new LocalSmtpServer(MAIL_HOG_BIN, SERVER, PORT, 8027, 8027);
         smtpServer.start();
+
+        Files.deleteIfExists(Paths.get(filename));
     }
 
     @AfterEach

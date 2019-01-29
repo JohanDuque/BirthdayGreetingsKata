@@ -2,7 +2,7 @@
 
 - One birthday: 
     - Al, Pablo, John
-    - John's brithday ==> mail to John
+    - Al's brithday ==> mail to Al
     
 - Many birthdays:
     - Al, Pablo, John
