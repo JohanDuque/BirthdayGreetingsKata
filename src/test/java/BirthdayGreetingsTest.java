@@ -19,6 +19,7 @@ public class BirthdayGreetingsTest {
 
     private LocalSmtpServer smtpServer;
     private static final String MAIL_HOG_BIN = "./src/test/java/support/MailHog_darwin_amd64";
+    private final String filename = "employees_test.txt";
 
     //This is an end to end test
     @Test
@@ -72,14 +73,14 @@ public class BirthdayGreetingsTest {
 
     @Test
     void oneBirthday() throws IOException, MessagingException {
-        Files.write(Paths.get("employees.txt"), Arrays.asList(
+        Files.write(Paths.get(filename), Arrays.asList(
                 "last_name, first_name, date_of_birth, email",
                 "Capone, Al, 1951-10-08, al.capone@acme.com",
                 "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
                 "Wick, John, 1987-09-11, john.wick@acme.com"
         ));
 
-        BirthdayGreetings greetings = new BirthdayGreetings("employees.txt");
+        BirthdayGreetings greetings = new BirthdayGreetings(filename);
         greetings.send(LocalDate.parse("2018-10-08"));
 
         //Read form employees file
