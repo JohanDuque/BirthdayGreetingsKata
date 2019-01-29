@@ -50,7 +50,7 @@ public class BirthdayGreetingsTest {
             System.out.println(line);
         }*/
 
-        lines.stream().forEach(System.out::println);
+        lines.forEach(System.out::println);
     }
 
     @BeforeEach
