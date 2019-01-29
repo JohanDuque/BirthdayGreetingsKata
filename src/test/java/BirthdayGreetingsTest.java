@@ -63,4 +63,20 @@ public class BirthdayGreetingsTest {
 
         //Delete employee file
     }
+
+    @Test
+    void noBirthday() throws IOException, MessagingException {
+        Files.write(Paths.get(filename), Arrays.asList(
+                "last_name, first_name, date_of_birth, email",
+                "Capone, Al, 1951-10-08, al.capone@acme.com",
+                "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
+                "Wick, John, 1987-09-11, john.wick@acme.com"
+        ));
+
+        BirthdayGreetings greetings = new BirthdayGreetings(filename, SERVER, PORT);
+        greetings.send(LocalDate.parse("2018-12-31"));
+
+        final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
+        assertEquals(0, messages.size());
+    }
 }
