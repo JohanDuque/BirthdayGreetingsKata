@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,8 +38,7 @@ public class BirthdayGreetingsTest {
 
     @Test
     void oneBirthday() throws IOException, MessagingException {
-        Files.write(Paths.get(filename), Arrays.asList(
-                "last_name, first_name, date_of_birth, email",
+        prepareFile(filename, Arrays.asList(
                 "Capone, Al, 1951-10-08, al.capone@acme.com",
                 "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
                 "Wick, John, 1987-09-11, john.wick@acme.com"
@@ -47,8 +47,6 @@ public class BirthdayGreetingsTest {
         BirthdayGreetings greetings = new BirthdayGreetings(filename, SERVER, PORT);
         greetings.send(LocalDate.parse("2018-10-08"));
 
-        //Read form employees file
-        //Check for birthday
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
         assertEquals(1, messages.size());
 
@@ -57,17 +55,11 @@ public class BirthdayGreetingsTest {
         assertEquals("greeter@acme.com", msg.getFrom());
         assertEquals("Happy birthday!", msg.getSubject());
         assertEquals("Happy birthday, dear Al!", msg.getBody());
-
-        //read mail sent to smtp server
-        //assert on mail received
-
-        //Delete employee file
     }
 
     @Test
     void noBirthday() throws IOException, MessagingException {
-        Files.write(Paths.get(filename), Arrays.asList(
-                "last_name, first_name, date_of_birth, email",
+        prepareFile(filename, Arrays.asList(
                 "Capone, Al, 1951-10-08, al.capone@acme.com",
                 "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
                 "Wick, John, 1987-09-11, john.wick@acme.com"
@@ -78,5 +70,30 @@ public class BirthdayGreetingsTest {
 
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
         assertEquals(0, messages.size());
+    }
+
+    @Test
+    void manyBirthdays() throws IOException, MessagingException {
+        prepareFile(filename, Arrays.asList(
+                "Capone, Al, 1951-10-08, al.capone@acme.com",
+                "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
+                "Wick, John, 1987-09-11, john.wick@acme.com"
+        ));
+
+        BirthdayGreetings greetings = new BirthdayGreetings(filename, SERVER, PORT);
+        greetings.send(LocalDate.parse("1987-09-11"));
+
+        final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
+        assertEquals(2, messages.size());
+    }
+
+    private void prepareFile(String filename, List<String> lines) throws IOException {
+        final String header = "last_name, first_name, date_of_birth, email";
+
+        List<String> fileLines = new ArrayList<>();
+        fileLines.add(header);
+        fileLines.addAll(lines);
+
+        Files.write(Paths.get(filename), fileLines);
     }
 }
