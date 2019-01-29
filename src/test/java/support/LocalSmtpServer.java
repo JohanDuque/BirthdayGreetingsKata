@@ -106,7 +106,7 @@ public class LocalSmtpServer {
     private ServerState parseJson(String result) {
         Any rawServerState = JsonIterator.deserialize(result);
         int count = rawServerState.get("count").toInt();
-        ArrayList<MailReceived> messages = new ArrayList<MailReceived>();
+        ArrayList<MailReceived> messages = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
             Any msg = rawServerState.get("items", i);
