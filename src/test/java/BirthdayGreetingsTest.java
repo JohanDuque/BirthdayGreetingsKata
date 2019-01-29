@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BirthdayGreetingsTest {
 
     @Test
-     void itWorks(){
+    void itWorks() {
         assertEquals("a", "a");
     }
 
@@ -24,9 +24,9 @@ public class BirthdayGreetingsTest {
 
         //BirthdayGreetings greetings = new BirthdayGreetings();
         //greetings.send();
-            //Read form employees file
-            //Check for birthday
-            //Send mail through mail client
+        //Read form employees file
+        //Check for birthday
+        //Send mail through mail client
 
         //read mail sent to smtp server
         //assert on mail received
@@ -44,14 +44,13 @@ public class BirthdayGreetingsTest {
         Session session = Session.getInstance(props, null);
 
         // Construct the message
-            Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("test@acme"));
-            msg.setRecipient(Message.RecipientType.TO, new InternetAddress("who@knows.com"));
-            msg.setSubject("Greetings");
-            msg.setText("Hello banana!");
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress("test@acme"));
+        msg.setRecipient(Message.RecipientType.TO, new InternetAddress("who@knows.com"));
+        msg.setSubject("Greetings");
+        msg.setText("Hello banana!");
 
-            // Send the message
-            Transport.send(msg);
-
+        // Send the message
+        Transport.send(msg);
     }
 }
