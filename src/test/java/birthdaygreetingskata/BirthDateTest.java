@@ -1,4 +1,5 @@
-import birthdaygreetingskata.BirthDate;
+package birthdaygreetingskata;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
