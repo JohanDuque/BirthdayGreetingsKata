@@ -9,6 +9,7 @@
 - empty file
 
 - Convert oneBirthday Test to use message receiver
+- Smtp postalOffice doesn't care about all Employee info (only mail and first name)
 
 
 ### FILE FORMAT
