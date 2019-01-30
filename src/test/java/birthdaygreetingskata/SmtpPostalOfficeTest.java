@@ -8,8 +8,7 @@ import support.LocalSmtpServer;
 import javax.mail.MessagingException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SmtpPostalOfficeTest {
 
@@ -45,5 +44,10 @@ class SmtpPostalOfficeTest {
         return new LocalSmtpServer.MailReceived("greeter@acme.com", to, "Happy birthday!", "Happy birthday, dear " + firstName + "!");
     }
 
-
+    @Test
+    void serverUnreachable() {
+        final int UNREACHABLE_PORT = 0000;
+        SmtpPostalOffice smtpPostalOffice = new SmtpPostalOffice(SERVER, UNREACHABLE_PORT);
+        assertThrows(MessagingException.class, () ->  smtpPostalOffice.sendMail(new Employee("Duque", "Johan", "j.duque@acme.com", BirthDate.parse("1987-01-04"))));
+    }
 }

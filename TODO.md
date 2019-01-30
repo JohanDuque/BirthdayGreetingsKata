@@ -1,8 +1,6 @@
 ##TEST LIST
 
 - SmtpPostalOffice
-    - smtp mail sent
-    - smtp unreachable
     - smtp response KO
 
 - missing file
@@ -33,3 +31,6 @@ Wick, John, 1987-09-11, john.wick@acme.com
 - no bithday
     - Al, Pablo, John
     - no birthdays => no mails
+    
+- smtp mail sent
+- smtp unreachable
