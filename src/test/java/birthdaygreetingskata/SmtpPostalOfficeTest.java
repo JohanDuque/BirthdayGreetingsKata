@@ -8,6 +8,7 @@ import support.LocalSmtpServer;
 import javax.mail.MessagingException;
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SmtpPostalOfficeTest {
@@ -36,6 +37,7 @@ class SmtpPostalOfficeTest {
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
 
         LocalSmtpServer.MailReceived expectedMsg = getMailReceived("j.duque@acme.com", "Johan");
+        assertEquals(expectedMsg, messages.get(0));
         assertTrue(messages.contains(expectedMsg));
     }
 
