@@ -37,16 +37,16 @@ public class BirthdayGreetingsTest {
     void tearDown() {
         smtpServer.stop();
     }
-    
+
     @Test
-    void manyBirthdays() throws IOException, MessagingException {
+    void manyBirthday() throws IOException, MessagingException {
         prepareFile(filename, Arrays.asList(
                 "Capone, Al, 1951-10-08, al.capone@acme.com",
                 "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
                 "Wick, John, 1987-09-11, john.wick@acme.com"
         ));
 
-        BirthdayGreetings greetings = new BirthdayGreetings(filename, SERVER, PORT);
+        BirthdayGreetings greetings = new BirthdayGreetings(SERVER, PORT, new CsvEmployeeFileRegistry(filename));
         greetings.send(LocalDate.parse("1987-09-11"));
 
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
