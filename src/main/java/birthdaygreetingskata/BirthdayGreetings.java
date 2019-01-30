@@ -10,11 +10,6 @@ public class BirthdayGreetings {
     private SmtpPostalOffice smtpPostalOffice;
     private CsvEmployeeFileRegistry csvEmployeeFileRegistry;
 
-    public BirthdayGreetings(String host, int port, CsvEmployeeFileRegistry csvEmployeeFileRegistry) {
-        this.csvEmployeeFileRegistry = csvEmployeeFileRegistry;
-        smtpPostalOffice = new SmtpPostalOffice(host, port);
-    }
-
     public BirthdayGreetings(CsvEmployeeFileRegistry csvEmployeeFileRegistry, SmtpPostalOffice smtpPostalOffice) {
         this.csvEmployeeFileRegistry = csvEmployeeFileRegistry;
         this.smtpPostalOffice = smtpPostalOffice;
