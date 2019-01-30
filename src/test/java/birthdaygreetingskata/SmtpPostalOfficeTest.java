@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 import support.LocalSmtpServer;
 
 import javax.mail.MessagingException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,14 +16,11 @@ class SmtpPostalOfficeTest {
     private static final int PORT = 1027;
     private LocalSmtpServer smtpServer;
     private static final String MAIL_HOG_BIN = "./src/test/java/support/MailHog_darwin_amd64";
-    private final String filename = "employees_test.txt";
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() {
         smtpServer = new LocalSmtpServer(MAIL_HOG_BIN, SERVER, PORT, 8027, 8027);
         smtpServer.start();
-
-        Files.deleteIfExists(Paths.get(filename));
     }
 
     @AfterEach
