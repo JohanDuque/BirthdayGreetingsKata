@@ -1,6 +1,7 @@
 package birthdaygreetingskata;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Employee {
     private final String surname;
@@ -33,5 +34,31 @@ public class Employee {
 
     boolean isBirthday(LocalDate today) {
         return this.birthDate.isBirthday(today);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(surname, employee.surname) &&
+                Objects.equals(name, employee.name) &&
+                Objects.equals(email, employee.email) &&
+                Objects.equals(birthDate, employee.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(surname, name, email, birthDate);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }
