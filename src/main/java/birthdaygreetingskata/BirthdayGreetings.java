@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ public class BirthdayGreetings {
     public void send(LocalDate today) throws MessagingException, IOException {
         // read from employee file
         List<String> allLines = redEmployeeFile();
+        List<Employee> employees = new ArrayList<>();
         // parse csv
         for (String employeeLine : allLines) {
             List<String> employeePart = Arrays.stream(employeeLine.split(","))
@@ -34,11 +36,16 @@ public class BirthdayGreetings {
                     employeePart.get(3),
                     BirthDate.parse(employeePart.get(2)));
 
+            employees.add(employee);
+        }
+
+        for (Employee employee : employees) {
             // check birthday
             if (employee.isBirthday(today)) {
                 smtpPostalOffice.sendMail(employee);
             }
         }
+
     }
 
     private List<String> redEmployeeFile() throws IOException {
