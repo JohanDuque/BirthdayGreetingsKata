@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class EmployeeFactory {
+public class CsvEmployeeFileReader {
     String employeeFile;
 
-    public EmployeeFactory(String employeeFile) {
+    public CsvEmployeeFileReader(String employeeFile) {
         this.employeeFile = employeeFile;
     }
 
