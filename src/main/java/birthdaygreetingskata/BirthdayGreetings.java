@@ -16,7 +16,7 @@ public class BirthdayGreetings {
     }
 
     void send(LocalDate today) throws MessagingException, IOException {
-        List<Employee> employees = employeeFactory.parseEmployees(employeeFactory.readEmployeeFile());
+        List<Employee> employees = employeeFactory.getAllEmployees();
 
         for (Employee employee : employees) {
             if (employee.isBirthday(today)) {

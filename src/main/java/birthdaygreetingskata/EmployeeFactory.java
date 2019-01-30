@@ -18,6 +18,10 @@ public class EmployeeFactory {
         return allLines.stream().map(this::parseEmployee).collect(Collectors.toList());
     }
 
+    List<Employee> getAllEmployees() throws IOException {
+        return parseEmployees(readEmployeeFile());
+    }
+
     Employee parseEmployee(String employeeLine) {
         List<String> employeePart = Arrays.stream(employeeLine.split(","))
                 .map(String::trim)
