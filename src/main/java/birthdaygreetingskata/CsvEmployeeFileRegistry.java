@@ -7,19 +7,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CsvEmployeeFileRegistry {
+public class CsvEmployeeFileRegistry implements EmployeeRegistry {
     String employeeFile;
 
     public CsvEmployeeFileRegistry(String employeeFile) {
         this.employeeFile = employeeFile;
     }
 
-    List<Employee> parseEmployees(List<String> allLines) {
-        return allLines.stream().map(this::parseEmployee).collect(Collectors.toList());
+    @Override
+    public List<Employee> getAllEmployees() throws IOException {
+        return parseEmployees(readEmployeeFile());
     }
 
-    List<Employee> getAllEmployees() throws IOException {
-        return parseEmployees(readEmployeeFile());
+    List<Employee> parseEmployees(List<String> allLines) {
+        return allLines.stream().map(this::parseEmployee).collect(Collectors.toList());
     }
 
     Employee parseEmployee(String employeeLine) {
