@@ -7,12 +7,12 @@ import java.util.List;
 
 public class BirthdayGreetings {
 
-    private SmtpPostalOffice smtpPostalOffice;
+    private PostalOffice postalOffice;
     private CsvEmployeeFileRegistry csvEmployeeFileRegistry;
 
-    public BirthdayGreetings(CsvEmployeeFileRegistry csvEmployeeFileRegistry, SmtpPostalOffice smtpPostalOffice) {
+    public BirthdayGreetings(CsvEmployeeFileRegistry csvEmployeeFileRegistry, PostalOffice postalOffice) {
         this.csvEmployeeFileRegistry = csvEmployeeFileRegistry;
-        this.smtpPostalOffice = smtpPostalOffice;
+        this.postalOffice = postalOffice;
     }
 
     void send(LocalDate today) throws MessagingException, IOException {
@@ -20,7 +20,7 @@ public class BirthdayGreetings {
 
         for (Employee employee : employees) {
             if (employee.isBirthday(today)) {
-                smtpPostalOffice.sendMail(employee);
+                postalOffice.dispatchMessage(employee);
             }
         }
     }

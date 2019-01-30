@@ -31,7 +31,7 @@ class SmtpPostalOfficeTest {
     @Test
     void sendMailWorks() throws MessagingException {
         SmtpPostalOffice smtpPostalOffice = new SmtpPostalOffice(SERVER, PORT);
-        smtpPostalOffice.sendMail(new Employee("Duque", "Johan", "j.duque@acme.com", BirthDate.parse("1987-01-04")));
+        smtpPostalOffice.dispatchMessage(new Employee("Duque", "Johan", "j.duque@acme.com", BirthDate.parse("1987-01-04")));
 
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
 
@@ -48,6 +48,6 @@ class SmtpPostalOfficeTest {
     void serverUnreachable() {
         final int UNREACHABLE_PORT = 0000;
         SmtpPostalOffice smtpPostalOffice = new SmtpPostalOffice(SERVER, UNREACHABLE_PORT);
-        assertThrows(MessagingException.class, () ->  smtpPostalOffice.sendMail(new Employee("Duque", "Johan", "j.duque@acme.com", BirthDate.parse("1987-01-04"))));
+        assertThrows(MessagingException.class, () ->  smtpPostalOffice.dispatchMessage(new Employee("Duque", "Johan", "j.duque@acme.com", BirthDate.parse("1987-01-04"))));
     }
 }
