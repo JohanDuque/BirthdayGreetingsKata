@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 public class EmployeeFactory {
     String employeeFile;
 
-    public EmployeeFactory() {
+    public EmployeeFactory(String employeeFile) {
+        this.employeeFile = employeeFile;
     }
 
     List<Employee> parseEmployees(List<String> allLines) {

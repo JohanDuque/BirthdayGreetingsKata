@@ -7,11 +7,11 @@ import java.util.List;
 
 public class BirthdayGreetings {
 
-    private final EmployeeFactory employeeFactory = new EmployeeFactory();
     private SmtpPostalOffice smtpPostalOffice;
+    private EmployeeFactory employeeFactory;
 
     BirthdayGreetings(String employeeFile, String host, int port) {
-        this.employeeFactory.employeeFile = employeeFile;
+        this.employeeFactory = new EmployeeFactory(employeeFile);
         smtpPostalOffice = new SmtpPostalOffice(host, port);
     }
 
