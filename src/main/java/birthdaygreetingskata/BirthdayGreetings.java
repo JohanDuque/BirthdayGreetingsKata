@@ -1,11 +1,6 @@
 package birthdaygreetingskata;
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -40,7 +35,7 @@ public class BirthdayGreetings {
                     BirthDate.parse(employeePart.get(2)));
 
             // check birthday
-            if(employee.isBirthday(today)) {
+            if (employee.isBirthday(today)) {
                 smtpPostalOffice.sendMail(employee);
             }
         }
