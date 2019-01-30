@@ -30,7 +30,7 @@ class CsvEmployeeFileRegistryTest {
     }
 
     @Test
-    void manyBirthdays() throws IOException {
+    void manyEmployees() throws IOException {
         prepareFile(filename, Arrays.asList(
                 "Capone, Al, 1951-10-08, al.capone@acme.com",
                 "Escobar, Pablo, 1975-09-11, pablo.escobar@acme.com",
