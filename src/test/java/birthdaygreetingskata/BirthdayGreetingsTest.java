@@ -46,7 +46,7 @@ public class BirthdayGreetingsTest {
                 "Wick, John, 1987-09-11, john.wick@acme.com"
         ));
 
-        BirthdayGreetings greetings = new BirthdayGreetings(SERVER, PORT, new CsvEmployeeFileRegistry(filename));
+        BirthdayGreetings greetings = new BirthdayGreetings(new CsvEmployeeFileRegistry(filename), new SmtpPostalOffice(SERVER, PORT));
         greetings.send(LocalDate.parse("1987-09-11"));
 
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();

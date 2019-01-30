@@ -15,6 +15,11 @@ public class BirthdayGreetings {
         smtpPostalOffice = new SmtpPostalOffice(host, port);
     }
 
+    public BirthdayGreetings(CsvEmployeeFileRegistry csvEmployeeFileRegistry, SmtpPostalOffice smtpPostalOffice) {
+        this.csvEmployeeFileRegistry = csvEmployeeFileRegistry;
+        this.smtpPostalOffice = smtpPostalOffice;
+    }
+
     void send(LocalDate today) throws MessagingException, IOException {
         List<Employee> employees = csvEmployeeFileRegistry.getAllEmployees();
 
