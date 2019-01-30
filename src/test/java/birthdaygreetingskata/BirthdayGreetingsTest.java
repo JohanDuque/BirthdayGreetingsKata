@@ -52,11 +52,11 @@ public class BirthdayGreetingsTest {
         final ArrayList<LocalSmtpServer.MailReceived> messages = smtpServer.currentState().getMessages();
         assertEquals(1, messages.size());
 
+        LocalSmtpServer.MailReceived expectedMsg = getMailReceived("al.capone@acme.com", "Al");
+        assertTrue(messages.contains(expectedMsg));
+
         final LocalSmtpServer.MailReceived msg = messages.get(0);
-        assertEquals("al.capone@acme.com", msg.getTo());
-        assertEquals("greeter@acme.com", msg.getFrom());
-        assertEquals("Happy birthday!", msg.getSubject());
-        assertEquals("Happy birthday, dear Al!", msg.getBody());
+        assertEquals(expectedMsg, msg);
     }
 
     @Test
