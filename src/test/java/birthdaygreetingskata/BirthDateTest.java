@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class BirthDateTest {
 
@@ -22,5 +21,22 @@ class BirthDateTest {
 
         assertFalse(birthDate.isBirthday(LocalDate.parse("2018-09-17")));
         assertFalse(birthDate.isBirthday(LocalDate.parse("2018-10-16")));
+    }
+
+    @Test
+    void equality() {
+        BirthDate birthDate = BirthDate.parse("1987-09-16");
+        BirthDate birthDateCopy = BirthDate.parse("1987-09-16");
+        BirthDate birthDateDifferent = BirthDate.parse("1986-09-16");
+
+        BirthDate birthDateDiffMonth = BirthDate.parse("1987-01-16");
+        BirthDate birthDateDiffDay = BirthDate.parse("1987-09-11");
+        BirthDate birthDateDiffYear = BirthDate.parse("1999-09-16");
+
+        assertEquals(birthDate, birthDateCopy);
+        assertNotEquals(birthDate, birthDateDifferent);
+        assertNotEquals(birthDate, birthDateDiffDay);
+        assertNotEquals(birthDate, birthDateDiffMonth);
+        assertNotEquals(birthDate, birthDateDiffYear);
     }
 }

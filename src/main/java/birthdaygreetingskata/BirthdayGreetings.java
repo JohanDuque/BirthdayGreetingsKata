@@ -8,15 +8,15 @@ import java.util.List;
 public class BirthdayGreetings {
 
     private SmtpPostalOffice smtpPostalOffice;
-    private CsvEmployeeFileReader csvEmployeeFileReader;
+    private CsvEmployeeFileRegistry csvEmployeeFileRegistry;
 
     BirthdayGreetings(String employeeFile, String host, int port) {
-        this.csvEmployeeFileReader = new CsvEmployeeFileReader(employeeFile);
+        this.csvEmployeeFileRegistry = new CsvEmployeeFileRegistry(employeeFile);
         smtpPostalOffice = new SmtpPostalOffice(host, port);
     }
 
     void send(LocalDate today) throws MessagingException, IOException {
-        List<Employee> employees = csvEmployeeFileReader.getAllEmployees();
+        List<Employee> employees = csvEmployeeFileRegistry.getAllEmployees();
 
         for (Employee employee : employees) {
             if (employee.isBirthday(today)) {
